@@ -39,5 +39,26 @@ export class AuthController {
       }
       res.json(body);
     });
+
+    this.router.post('/login', async (req: RequestBody<AuthModel.UserLoginModel>, res: Response) => {
+      let body;
+      try {
+        await AuthModel.UserLoginModelSchema.validateAsync(req.body, {
+          abortEarly: false,
+        });
+        const db = res.locals.db as Db;
+
+        const service = new AuthService({ db });
+
+        const response = await service.GetLoginUser(req.body);
+
+        body = {
+          data: response,
+        };
+      } catch (error) {
+        genericError(error, res);
+      }
+      res.json(body);
+    });
   }
 }

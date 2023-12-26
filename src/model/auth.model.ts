@@ -3,18 +3,31 @@ import Joi from 'joi';
 
 export const joiPasswordValidation = Joi.string().required().min(8).regex(PASSWORD_REGEX);
 
-
 export const RegisterUserBodySchema = Joi.object({
-  firstName: Joi.string().required(),
-  lastName: Joi.string().required(),
+  name: Joi.string().required(),
+  phoneNo: Joi.string().required(),
+  email: Joi.string().email().required(),
+  password: joiPasswordValidation,
+});
+
+export const UserLoginModelSchema = Joi.object({
   email: Joi.string().email().required(),
   password: joiPasswordValidation,
 });
 
 export interface RegisterUserBody {
-  firstName: string,
-  lastName: string,
-  email: string,
-  password: string
+  name: string;
+  phoneNo: string;
+  email: string;
+  password: string;
 }
 
+export interface UserLoginModel {
+  email: string;
+  password: string;
+}
+
+export interface Tokens {
+  accessToken: string;
+  refreshToken: string;
+}

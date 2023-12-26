@@ -9,6 +9,6 @@ export function createAccessToken(payload: Record<string, string>): string {
 
 // Function to generate JWT token
 export function createRefreshToken(payload: Record<string, string>): string {
-  const token = jwt.sign({ ...payload, isRefreshToken: true }, Jwt.JWT_SECRET, { expiresIn: '6h' });
+  const token = jwt.sign({ ...payload, isRefreshToken: true }, Jwt.JWT_SECRET, { expiresIn: '6d' });
   return token;
 }
